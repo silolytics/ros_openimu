@@ -121,7 +121,7 @@ if __name__ == "__main__":
     
     rate = rospy.Rate(100)   # 10Hz
     seq = 0
-    frame_id = 'OpenIMU'
+    frame_id = 'imu'
     convert_rads = math.pi /180
     convert_tesla = 1/10000
 
