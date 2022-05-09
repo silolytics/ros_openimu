@@ -73,9 +73,9 @@ class OpenIMUros:
             imu_msg.linear_acceleration.x = readback['xaccel']
             imu_msg.linear_acceleration.y = readback['yaccel']
             imu_msg.linear_acceleration.z = readback['zaccel']
-            imu_msg.linear_acceleration_covariance[0] = 0.002
-            imu_msg.linear_acceleration_covariance[4] = 0.002
-            imu_msg.linear_acceleration_covariance[8] = 0.002
+            imu_msg.linear_acceleration_covariance[0] = -1
+            #imu_msg.linear_acceleration_covariance[4] = 0.002
+            #imu_msg.linear_acceleration_covariance[8] = 0.002
             imu_msg.angular_velocity.x = readback['xrate'] * convert_rads
             imu_msg.angular_velocity.y = readback['yrate'] * convert_rads
             imu_msg.angular_velocity.z = readback['zrate'] * convert_rads
