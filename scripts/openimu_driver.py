@@ -24,8 +24,8 @@ except:  # pylint: disable=bare-except
 class OpenIMUros:
     def __init__(self):
         # The default connection method fails on RS232 of Jetson Orin Nano
-        self.port = rospy.get_param('port', '/dev/ttySH1')
-        self.baudrate = rospy.get_param('baudrate', '115200')
+        self.port = rospy.get_param('/openimu_driver/port', '/dev/ttyTHS1')
+        self.baudrate = rospy.get_param('/openimu_driver/baudrate', '115200')
         self.openimudev = OpenIMU(
 		device_type='IMU',
 		com_port=self.port,
