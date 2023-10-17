@@ -37,4 +37,10 @@ Following format is used:
 
 1. Covariances
 
-The covariances are set for roll and pitch according to the accuray in the datsheet. 0.5
+The covariances are set for roll and pitch according to the accuray in the datsheet. 0.25
+
+2. Connection
+The driver uses in it's initialization a gneric method to find the device. This fails if we use the the driver with the RS232 ports. 
+<br> Params are in launchfile:
+ - Port: /dev/ttyTSH1
+ - baidrate: 115200
