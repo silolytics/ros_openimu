@@ -1,5 +1,6 @@
-name: ros-openimu
-on:
+name: build-dev-package
+on: 
+  workflow_dispatch:
   push:
     branches:
       - main
