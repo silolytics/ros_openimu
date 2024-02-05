@@ -22,9 +22,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-   scripts/openimu_driver.py
-   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
- )
+  scripts/openimu_driver.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 catkin_python_setup()
 ## Mark other files for installation (e.g. launch and bag files, etc.)
