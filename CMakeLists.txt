@@ -10,6 +10,14 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  sensor_msgs
+)
+
+catkin_package(
+  CATKIN_DEPENDS
+    rospy
+    std_msgs
+    sensor_msgs
 )
 
 #############
