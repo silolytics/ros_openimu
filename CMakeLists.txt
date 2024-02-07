@@ -33,7 +33,7 @@ catkin_install_python(PROGRAMS
   scripts/openimu_driver.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
-
+catkin_python_setup()
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 install(DIRECTORY launch/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch)
 
