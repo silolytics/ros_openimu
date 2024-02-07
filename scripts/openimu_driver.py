@@ -14,10 +14,11 @@ PACKAGETYPE = 'a2'
 try:
     from ros_openimu.src.aceinna.tools import OpenIMU
 except:  # pylint: disable=bare-except
-    temp = (sys.path[0])
-    temp2 = temp[0:(len(temp)-7)]
-    sys.path.append(temp2 + 'src')
+    #temp = (sys.path[0])
+    #temp2 = temp[0:(len(temp)-7)]
+    #sys.path.append(temp2 + 'src')
     #sys.path.append('./src')
+    print("Default import fails. Assuming that package is installed correctly")
     from aceinna.tools import OpenIMU
 
 
