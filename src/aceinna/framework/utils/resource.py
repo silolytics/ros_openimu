@@ -1,7 +1,7 @@
 import os
 import sys
 import pkgutil
-from ... import PACKAGE_NAME
+#from ... import PACKAGE_NAME
 
 
 def is_in_bundle():
@@ -19,9 +19,10 @@ def get_executor_path():
         if is_dev_mode():  # if start from main.py
             path = os.getcwd()
         else:
-            path = os.path.join(os.path.expanduser('~'), PACKAGE_NAME)
+            path = os.path.join(os.path.expanduser('~'), "openimu")
             if not os.path.isdir(path):
                 os.makedirs(path)
+    #print("############################### path {}".format(path))
     return path
 
 
