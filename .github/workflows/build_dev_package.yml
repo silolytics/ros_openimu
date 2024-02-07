@@ -1,5 +1,6 @@
-name: ros-openimu
-on:
+name: build-dev-package
+on: 
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -11,7 +12,6 @@ jobs:
         with:
           command: roslaunch ros_openimu openimu_driver.launch
           base-image: rwthika/ros:noetic-ros-core
-          additional-pip-file: docker/additional-pip-files/imu-requirements.txt
           ros-distro: noetic
           platform: amd64
       - name: Clean up

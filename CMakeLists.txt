@@ -10,6 +10,14 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  sensor_msgs
+)
+
+catkin_package(
+  CATKIN_DEPENDS
+    rospy
+    std_msgs
+    sensor_msgs
 )
 
 #############
@@ -18,14 +26,13 @@ find_package(catkin REQUIRED COMPONENTS
 
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
+catkin_python_setup()
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-   scripts/openimu_driver.py
-   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
- )
-
+  scripts/openimu_driver.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 catkin_python_setup()
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 install(DIRECTORY launch/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch)
