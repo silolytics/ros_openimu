@@ -3,16 +3,16 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - ros2
 jobs:
   docker-ros:
     runs-on: ubuntu-latest
     steps:
       - uses: ika-rwth-aachen/docker-ros@v1.3.1
         with:
-          command: roslaunch ros_openimu openimu_driver.launch
-          base-image: rwthika/ros:noetic-ros-core
-          ros-distro: noetic
+          command: ros2 launch ros_openimu openimu_driver.launch
+          base-image: rwthika/ros2:humble-ros-core
+          ros-distro: humble
           platform: amd64
       - name: Clean up
         run: |
