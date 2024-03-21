@@ -21,6 +21,7 @@ setup(
         # Include all files in the script folder.
         (os.path.join('share', package_name, 'scripts'), glob('scripts/*.py')),
         # Include all launch files.
+        
     ],
     # This is important as well
     install_requires=['setuptools'],
