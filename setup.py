@@ -9,6 +9,7 @@ setup(
     version='1.0.0',
     # Packages to export
     packages=[package_name],
+    package_dir={'': 'src'},
     # Files we want to install, specifically launch files
     data_files=[
         # Install marker file in the package index
@@ -20,7 +21,6 @@ setup(
         # Include all files in the script folder.
         (os.path.join('share', package_name, 'scripts'), glob('scripts/*.py')),
         # Include all launch files.
-        (os.path.join('share', package_name, 'src'), glob('src/*')),
     ],
     # This is important as well
     install_requires=['setuptools'],
@@ -40,9 +40,7 @@ setup(
     license='Apache',
     # Like the CMakeLists add_executable macro, you can add your python
     # scripts here.
-    entry_points={
-        'console_scripts': [
-            'ros_openimu = ros_openimu.scripts.openimu_driver::main'
-        ],
-    },
+     scripts=[
+      'scripts/openimu_driver.py'
+    ]
 )
