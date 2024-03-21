@@ -157,7 +157,7 @@ class OpenIMUros(Node):
 
 
 
-def main(self, args=None):
+def main(args=None):
     rclpy.init(args=args)
     ros_openimu = OpenIMUros()
     rclpy.spin(ros_openimu)

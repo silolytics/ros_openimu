@@ -181,12 +181,12 @@ class FileLoger():
             # create blob on azure
             if not bcreate_blob_ok:
                 try:
-                    self.append_blob_service = AppendBlobService(account_name=accountName,
-                                                                 sas_token=self.sas_token,
-                                                                 protocol='http')
-                    self.append_blob_service.create_blob(container_name=countainerName, blob_name=url_name,
-                                                         content_settings=ContentSettings(content_type='text/plain'))
-                    bcreate_blob_ok = True
+                    #self.append_blob_service = AppendBlobService(account_name=accountName,
+                    #                                             sas_token=self.sas_token,
+                    #                                             protocol='http')
+                    #self.append_blob_service.create_blob(container_name=countainerName, blob_name=url_name,
+                    #                                     content_settings=ContentSettings(content_type='text/plain'))
+                    #bcreate_blob_ok = True
                     threading.Thread(target=self.save_to_db_task, args=(
                         packet_type, log_file_name, url_name)).start()
                 except Exception as e:
