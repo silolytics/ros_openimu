@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: ika-rwth-aachen/docker-ros@v1.3.1
         with:
-          command: ros2 launch ros_openimu openimu_driver.launch
+          command: ros2 launch ros_openimu openimu_driver.launch.py
           base-image: rwthika/ros2:humble-ros-core
           ros-distro: humble
           platform: amd64
