@@ -14,6 +14,8 @@ jobs:
           base-image: rwthika/ros2:humble-ros-core
           ros-distro: humble
           platform: amd64
+          additional-pip-file: docker/additional-pip-files/requirements.txt
+          image-name: ghcr.io/${{ github.repository }}/humble
       - name: Clean up
         run: |
           docker system prune -a -f
