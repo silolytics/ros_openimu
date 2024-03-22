@@ -33,9 +33,9 @@ class OpenIMUros(Node):
         # The default connection method fails on RS232 of Jetson Orin Nano
         # Declare params for the connection to the device   
         port_descriptor = ParameterDescriptor(description='The port of the imu. On jetson nano the RS232 port is /dev/ttyTHS1')
-        self.declare_parameter(self.port,'/dev/ttyTHS1', port_descriptor)
+        self.declare_parameter(self.port,'/dev/ttyUSB0', port_descriptor)
         baudrate_descriptor = ParameterDescriptor(description='Set the baudrate for this device')
-        self.declare_parameter(self.baudrate, '115200', baudrate_descriptor)
+        self.declare_parameter(self.baudrate, 115200, baudrate_descriptor)
         self.openimudev = OpenIMU(
 		device_type='IMU',
 		com_port=self.get_parameter(self.port).value,

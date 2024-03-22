@@ -3,12 +3,13 @@ from glob import glob
 from setuptools import setup
 
 package_name = 'ros_openimu'
+submodules = 'aceinna'
 
 setup(
     name=package_name,
     version='1.0.0',
     # Packages to export
-    packages=[package_name],
+    packages=[package_name, submodules],
     package_dir={'': 'src'},
     # Files we want to install, specifically launch files
     data_files=[
@@ -20,8 +21,6 @@ setup(
         (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*.launch.py'))),
         # Include all files in the script folder.
         (os.path.join('share', package_name, 'scripts'), glob('scripts/*.py')),
-        # Include all launch files.
-        
     ],
     # This is important as well
     install_requires=['setuptools'],
