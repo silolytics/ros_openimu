@@ -6,8 +6,8 @@ import datetime
 import json
 import threading
 import requests
-from azure.storage.blob import AppendBlobService
-from azure.storage.blob import ContentSettings
+#from azure.storage.blob import AppendBlobService
+#from azure.storage.blob import ContentSettings
 from .utils import resource
 from .configuration import get_config
 
@@ -195,9 +195,9 @@ class FileLoger():
                         pass
                     elif error_authorization in str(e):
                         self.get_sas_token()
-                        self.append_blob_service = AppendBlobService(account_name=accountName,
-                                                                     sas_token=self.sas_token,
-                                                                     protocol='http')
+                        #self.append_blob_service = AppendBlobService(account_name=accountName,
+                        #                                             sas_token=self.sas_token,
+                        #                                             protocol='http')
                     print('Retry to create_blob again...')
                     continue
 
@@ -212,9 +212,9 @@ class FileLoger():
                     pass
                 elif error_authorization in str(e):
                     self.get_sas_token()
-                    self.append_blob_service = AppendBlobService(account_name=accountName,
-                                                                 sas_token=self.sas_token,
-                                                                 protocol='http')
+                    #self.append_blob_service = AppendBlobService(account_name=accountName,
+                    #                                             sas_token=self.sas_token,
+                    #                                             protocol='http')
                     # if append blob failed, do not drop 'text', but push 'text' to data_dict and re-append next time.
                     self.data_lock.acquire()
                     self.data_dict[log_file_name] = text + \

@@ -743,8 +743,8 @@ class Provider(OpenDeviceBase):
 
         try:
             config = get_config()
-            account_name = config.AZURE_STORAGE_ACCOUNT
-            container_name = config.AZURE_STORAGE_BACKUP_CONTAINER
+            #account_name = config.AZURE_STORAGE_ACCOUNT
+            #container_name = config.AZURE_STORAGE_BACKUP_CONTAINER
             sas_token = self.ans_platform.get_sas_token()
             if sas_token == '':
                 raise Exception('cannot get sas token')
