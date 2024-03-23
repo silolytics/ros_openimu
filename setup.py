@@ -9,7 +9,9 @@ setup(
     name=package_name,
     version='1.0.0',
     # Packages to export
-    packages=[package_name, subpackage],
+    packages=[package_name, subpackage, 'aceinna.bootstrap', 'aceinna.devices', 'aceinna.devices.base',
+              'aceinna.devices.openimu','aceinna.devices.openrtk', 'aceinna.devices.dmu', 'aceinna.devices.configs', 'aceinna.devices.parsers', 'aceinna.devices.upgrade_workers',
+              'aceinna.framework', 'aceinna.framework.utils', 'aceinna.models', 'aceinna.setting', 'aceinna.tools'],
     package_dir={'': 'src'},
     # Files we want to install, specifically launch files
     data_files=[
