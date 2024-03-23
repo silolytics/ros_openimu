@@ -43,7 +43,7 @@ setup(
               'aceinna.framework', 'aceinna.framework.utils', 'aceinna.models', 'aceinna.setting', 'aceinna.tools'],
     package_dir={'': 'src'},
 
-    data_files=package_files(data_files, ['src/aceinna']),
+    data_files=package_files(data_files, ['src/aceinna', 'launch/']),
     # This is important as well
     install_requires=['setuptools'],
     zip_safe=True,
