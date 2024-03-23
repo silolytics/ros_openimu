@@ -44,6 +44,7 @@ setup(
     package_dir={'': 'src'},
 
     data_files=package_files(data_files, ['src/aceinna', 'launch/']),
+    include_package_data=True,
     # This is important as well
     install_requires=['setuptools'],
     zip_safe=True,
