@@ -64,12 +64,12 @@ class OpenIMUros(Node):
 
     def publish_imu_callback(self):
         # Read data from device
-        readback = openimu_wrp.readimu()
+        readback = self.readimu()
         if(PACKAGETYPE == 'a2'):
-            openimu_wrp.dataToMsg(readback, self.use_ENU, self.seq, self.imu_msg, self.frame_id)
+            self.dataToMsg(readback, self.use_ENU, self.seq, self.imu_msg, self.frame_id)
         
         else:
-            openimu_wrp.dataToMsgRaw(readback, self.seq, self.imu_msg, self.frame_id)
+            self.dataToMsgRaw(readback, self.seq, self.imu_msg, self.frame_id)
         
         self.seq +=1
 
