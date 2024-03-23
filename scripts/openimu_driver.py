@@ -88,7 +88,7 @@ class OpenIMUros(Node):
 
 
     def dataToMsg(self, readback, use_enu, seq, imu_msg, frame_id):
-        imu_msg.header.stamp = self.get_clock.now().to_msg()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
         imu_msg.header.seq = seq
         '''
@@ -129,7 +129,7 @@ class OpenIMUros(Node):
             self.pub_imu.publish(imu_msg)
 
     def dataToMsgRaw(self, readback, seq, imu_msg, frame_id):
-        imu_msg.header.stamp = self.get_clock.now().to_msg()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
         imu_msg.header.seq = seq
         imu_msg.orientation_covariance[0] = -1
