@@ -52,7 +52,6 @@ class OpenIMUros(Node):
         self.pub_mag = self.create_publisher(Imu, 'imu_mag', 1)
         pub_period = 0.01  # Run with 100Hz
         self.pub_timer = self.create_timer(pub_period, self.publish_imu_callback)
-        self.seq = 0
         self.get_logger().info('Port: {}'.format(self.get_parameter(self.port).value))
         self.get_logger().info('Baudrate: {}'.format(self.get_parameter(self.baudrate).value))
         self.imu_msg = Imu()
@@ -66,12 +65,11 @@ class OpenIMUros(Node):
         # Read data from device
         readback = self.readimu()
         if(PACKAGETYPE == 'a2'):
-            self.dataToMsg(readback, self.use_ENU, self.seq, self.imu_msg, self.frame_id)
+            self.dataToMsg(readback, self.use_ENU, self.imu_msg, self.frame_id)
         
         else:
-            self.dataToMsgRaw(readback, self.seq, self.imu_msg, self.frame_id)
+            self.dataToMsgRaw(readback, self.imu_msg, self.frame_id)
         
-        self.seq +=1
 
     def close(self):
         self.openimudev.close()
@@ -87,10 +85,9 @@ class OpenIMUros(Node):
         return readback
 
 
-    def dataToMsg(self, readback, use_enu, seq, imu_msg, frame_id):
+    def dataToMsg(self, readback, use_enu, imu_msg, frame_id):
         imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
-        imu_msg.header.seq = seq
         '''
         Convert values to be compliant with REP-103 
         and REP-105
@@ -128,10 +125,9 @@ class OpenIMUros(Node):
             imu_msg.angular_velocity_covariance[0] = -1
             self.pub_imu.publish(imu_msg)
 
-    def dataToMsgRaw(self, readback, seq, imu_msg, frame_id):
+    def dataToMsgRaw(self, readback, imu_msg, frame_id):
         imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
-        imu_msg.header.seq = seq
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[1]
         imu_msg.linear_acceleration.y = readback[2]
@@ -146,14 +142,13 @@ class OpenIMUros(Node):
         # Publish magnetometer data - convert Gauss to Tesla
         self.mag_msg.header.stamp = imu_msg.header.stamp
         self.mag_msg.header.frame_id = frame_id
-        self.mag_msg.header.seq = seq
         self.mag_msg.magnetic_field.x = readback[7] * convert_tesla
         self.mag_msg.magnetic_field.y = readback[8] * convert_tesla
         self.mag_msg.magnetic_field.z = readback[9] * convert_tesla
         self.mag_msg.magnetic_field_covariance = [0,0,0,0,0,0,0,0,0]
         self.pub_mag.publish(self.mag_msg)
 
-        seq = seq + 1
+
 
 
 
