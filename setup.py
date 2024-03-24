@@ -32,7 +32,7 @@ setup(
     name=package_name,
     version='1.0.0',
     # Packages to export
-    packages=[package_name,'aceinna.bootstrap', 'aceinna.devices', 'aceinna.devices.base',
+    packages=[package_name, subpackage,'aceinna.bootstrap', 'aceinna.devices', 'aceinna.devices.base',
               'aceinna.devices.openimu', 'aceinna.devices.openrtk', 'aceinna.devices.dmu', 'aceinna.devices.configs', 'aceinna.devices.parsers', 'aceinna.devices.upgrade_workers',
               'aceinna.framework', 'aceinna.framework.utils', 'aceinna.models', 'aceinna.setting', 'aceinna.tools'],
     package_dir={'': 'src'},
@@ -48,7 +48,7 @@ setup(
         # Include all files in the script folder.
         (os.path.join('share', package_name, 'scripts'), glob('scripts/*.py')),
         (os.path.join('share', package_name, 'src/aceinna'), glob('src/aceinna/*.py')),
-        (os.path.join('share', package_name, 'src/ros_openimu'), glob('src/ros_openimu/*.py')),
+        #(os.path.join('share', package_name, 'src/ros_openimu'), glob('src/ros_openimu/*.py')),
         (os.path.join('share', package_name, 'src/aceinna/bootstrap'),
          glob('src/aceinna/bootstrap/*.py')),
         (os.path.join('share', package_name, 'src/aceinna/devices'),
