@@ -13,6 +13,7 @@ from tf_transformations import quaternion_from_euler
 ENU = True
 PACKAGETYPE = 'a2'
 
+
 try:
     from ros_openimu.src.aceinna.tools import OpenIMU
 except:  # pylint: disable=bare-except
@@ -57,6 +58,8 @@ class OpenIMUros(Node):
         self.imu_msg = Imu()
         self.mag_msg = MagneticField()
         self.frame_id = 'imu'
+        self.convert_rads = math.pi /180
+        self.convert_tesla = 1/10000
 
         self.openimudev.startup()
         self.use_ENU = ENU
@@ -95,14 +98,14 @@ class OpenIMUros(Node):
         if(readback['errorflag'] == False):
             if(use_enu):
                 if readback['roll'] > 0.0:
-                    readback['roll'] = (readback['roll'] - 180.0) * convert_rads
+                    readback['roll'] = (readback['roll'] - 180.0) * self.convert_rads
 
                 else:
-                    readback['roll'] = (readback['roll'] + 180.0) * convert_rads
+                    readback['roll'] = (readback['roll'] + 180.0) * self.convert_rads
 
-                readback['pitch'] = readback['pitch'] * -1 * convert_rads
+                readback['pitch'] = readback['pitch'] * -1 * self.convert_rads
 
-                readback['heading'] = readback['heading'] * -1 * convert_rads
+                readback['heading'] = readback['heading'] * -1 * self.convert_rads
 
             imu_msg.orientation_covariance[0] = 0.025
             imu_msg.orientation_covariance[4] = 0.025
@@ -119,9 +122,9 @@ class OpenIMUros(Node):
             imu_msg.linear_acceleration_covariance[0] = -1
             #imu_msg.linear_acceleration_covariance[4] = 0.002
             #imu_msg.linear_acceleration_covariance[8] = 0.002
-            imu_msg.angular_velocity.x = readback['xrate'] * convert_rads
-            imu_msg.angular_velocity.y = readback['yrate'] * convert_rads
-            imu_msg.angular_velocity.z = readback['zrate'] * convert_rads
+            imu_msg.angular_velocity.x = readback['xrate'] * self.convert_rads
+            imu_msg.angular_velocity.y = readback['yrate'] * self.convert_rads
+            imu_msg.angular_velocity.z = readback['zrate'] * self.convert_rads
             imu_msg.angular_velocity_covariance[0] = -1
             self.pub_imu.publish(imu_msg)
 
@@ -133,18 +136,18 @@ class OpenIMUros(Node):
         imu_msg.linear_acceleration.y = readback[2]
         imu_msg.linear_acceleration.z = readback[3]
         imu_msg.linear_acceleration_covariance[0] = -1
-        imu_msg.angular_velocity.x = readback[4] * convert_rads
-        imu_msg.angular_velocity.y = readback[5] * convert_rads
-        imu_msg.angular_velocity.z = readback[6] * convert_rads
+        imu_msg.angular_velocity.x = readback[4] * self.convert_rads
+        imu_msg.angular_velocity.y = readback[5] * self.convert_rads
+        imu_msg.angular_velocity.z = readback[6] * self.convert_rads
         imu_msg.angular_velocity_covariance[0] = -1
         self.pub_imu.publish(imu_msg)
 
         # Publish magnetometer data - convert Gauss to Tesla
         self.mag_msg.header.stamp = imu_msg.header.stamp
         self.mag_msg.header.frame_id = frame_id
-        self.mag_msg.magnetic_field.x = readback[7] * convert_tesla
-        self.mag_msg.magnetic_field.y = readback[8] * convert_tesla
-        self.mag_msg.magnetic_field.z = readback[9] * convert_tesla
+        self.mag_msg.magnetic_field.x = readback[7] * self.convert_tesla
+        self.mag_msg.magnetic_field.y = readback[8] * self.convert_tesla
+        self.mag_msg.magnetic_field.z = readback[9] * self.convert_tesla
         self.mag_msg.magnetic_field_covariance = [0,0,0,0,0,0,0,0,0]
         self.pub_mag.publish(self.mag_msg)
 
