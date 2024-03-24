@@ -48,7 +48,7 @@ setup(
         # Include all files in the script folder.
         (os.path.join('share', package_name, 'scripts'), glob('scripts/*.py')),
         (os.path.join('share', package_name, 'src/aceinna'), glob('src/aceinna/*.py')),
-        #(os.path.join('share', package_name, 'src/ros_openimu'), glob('src/ros_openimu/*.py')),
+        (os.path.join('share', package_name, 'src/ros_openimu'), glob('src/ros_openimu/*.py')),
         (os.path.join('share', package_name, 'src/aceinna/bootstrap'),
          glob('src/aceinna/bootstrap/*.py')),
         (os.path.join('share', package_name, 'src/aceinna/devices'),
