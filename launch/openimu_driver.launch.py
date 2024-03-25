@@ -12,7 +12,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'node_name',             default_value='openimu_driver'),
         DeclareLaunchArgument(
-            'port',             default_value='/dev/ttyUSB0'),
+            'port',             default_value='/dev/ttyTHS1'),
         DeclareLaunchArgument(
             'baudrate',             default_value='115200'),
 

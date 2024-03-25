@@ -4,6 +4,9 @@ ROS driver for Aceinna OpenIMU products
 
 - Please refer to the included application note for further information.
 
+### Diagnotics
+
+Hardware ID: 10
 
 ### Changes made to integrate OpenIMU300RI
 
