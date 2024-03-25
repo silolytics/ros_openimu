@@ -80,8 +80,7 @@ class OpenIMUros(Node):
 
     
     def diagnostic_callback(self):
-        self.array.header.stamp = self.get_clock().now().to_msg()
-        self.get_logger.warn("In diagnotic")
+        self.diag_array.header.stamp = self.get_clock().now().to_msg()
         # Assign imu status
         if self.imu_working:
             self.diag_array.status[1].level = DiagnosticStatus.OK
@@ -190,7 +189,7 @@ def main(args=None):
     rclpy.init(args=args)
     ros_openimu = OpenIMUros()
     rclpy.spin(ros_openimu)
-
+    ros_openimu.close()
     ros_openimu.destroy_node()
     rclpy.shutdown()
 
