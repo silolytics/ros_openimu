@@ -83,15 +83,15 @@ class OpenIMUros(Node):
         self.diag_array.header.stamp = self.get_clock().now().to_msg()
         # Assign imu status
         if self.imu_working:
-            self.diag_array.status[1].level = DiagnosticStatus.OK
-            self.diag_array.status[1].message = 'Imu state: OK'
-            self.diag_array.status[1].name = 'Aceinna IMU'
+            self.diag_array.status[0].level = DiagnosticStatus.OK
+            self.diag_array.status[0].message = 'Imu state: OK'
+            self.diag_array.status[0].name = 'Aceinna IMU'
 
         else:
-            self.diag_array.status[1].level = DiagnosticStatus.WARN
-            self.diag_array.status[1].message = 'Imu state: WARN '
-            self.diag_array.status[1].name = 'Aceinna IMU'
-        
+            self.diag_array.status[0].level = DiagnosticStatus.WARN
+            self.diag_array.status[0].message = 'Imu state: WARN '
+            self.diag_array.status[0].name = 'Aceinna IMU'
+    0
         self.diagnostic_pub.publish(self.diag_array)
 
     def publish_imu_callback(self):       # Read data from device
