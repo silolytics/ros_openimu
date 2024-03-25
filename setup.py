@@ -32,7 +32,7 @@ setup(
     name=package_name,
     version='1.0.0',
     # Packages to export
-    packages=[package_name, subpackage,'aceinna.bootstrap', 'aceinna.devices', 'aceinna.devices.base',
+    packages=[package_name, subpackage, 'aceinna.bootstrap', 'aceinna.devices', 'aceinna.devices.base',
               'aceinna.devices.openimu', 'aceinna.devices.openrtk', 'aceinna.devices.dmu', 'aceinna.devices.configs', 'aceinna.devices.parsers', 'aceinna.devices.upgrade_workers',
               'aceinna.framework', 'aceinna.framework.utils', 'aceinna.models', 'aceinna.setting', 'aceinna.tools'],
     package_dir={'': 'src'},
@@ -48,7 +48,8 @@ setup(
         # Include all files in the script folder.
         (os.path.join('share', package_name, 'scripts'), glob('scripts/*.py')),
         (os.path.join('share', package_name, 'src/aceinna'), glob('src/aceinna/*.py')),
-        (os.path.join('share', package_name, 'src/ros_openimu'), glob('src/ros_openimu/*.py')),
+        (os.path.join('share', package_name, 'src/ros_openimu'),
+         glob('src/ros_openimu/*.py')),
         (os.path.join('share', package_name, 'src/aceinna/bootstrap'),
          glob('src/aceinna/bootstrap/*.py')),
         (os.path.join('share', package_name, 'src/aceinna/devices'),
@@ -86,6 +87,8 @@ setup(
          glob('src/aceinna/setting/openimu/Compass/*.json')),
         (os.path.join('share', package_name, 'src/aceinna/setting/openimu/IMU'),
          glob('src/aceinna/setting/openimu/IMU/*.json')),
+        (os.path.join('share', package_name, 'src/aceinna/setting/openimu/INS'),
+         glob('src/aceinna/setting/openimu/INS/*.json')),
         (os.path.join('share', package_name, 'src/aceinna/setting/openimu/Leveler'),
          glob('src/aceinna/setting/openimu/Leveler/*.json')),
         (os.path.join('share', package_name, 'src/aceinna/setting/openimu/OpenIMU'),
@@ -94,12 +97,12 @@ setup(
          glob('src/aceinna/setting/openimu/VG/*.json')),
         (os.path.join('share', package_name, 'src/aceinna/setting/openimu/VG_AHRS'),
          glob('src/aceinna/setting/openimu/VG_AHRS/*.json')),
-         # openrtk
+        # openrtk
         (os.path.join('share', package_name, 'src/aceinna/setting/openrtk/INS'),
          glob('src/aceinna/setting/openrtk/INS/*.json')),
-         (os.path.join('share', package_name, 'src/aceinna/setting/openrtk/RAWDATA'),
+        (os.path.join('share', package_name, 'src/aceinna/setting/openrtk/RAWDATA'),
          glob('src/aceinna/setting/openrtk/RAWDATA/*.json')),
-          (os.path.join('share', package_name, 'src/aceinna/setting/openrtk/RTK'),
+        (os.path.join('share', package_name, 'src/aceinna/setting/openrtk/RTK'),
          glob('src/aceinna/setting/openrtk/RTK/*.json')),
 
 
