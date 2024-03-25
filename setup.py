@@ -86,8 +86,6 @@ setup(
          glob('src/aceinna/setting/opemimu/Compass/*.json')),
         (os.path.join('share', package_name, 'src/aceinna/setting/openimu/IMU'),
          glob('src/aceinna/setting/opemimu/IMU/*.json')),
-        (os.path.join('share', package_name, 'src/aceinna/setting/openimu/IMU'),
-         glob('src/aceinna/setting/openimu/IMU/*.json')),
         (os.path.join('share', package_name, 'src/aceinna/setting/openimu/Leveler'),
          glob('src/aceinna/setting/opemimu/Leveler/*.json')),
         (os.path.join('share', package_name, 'src/aceinna/setting/openimu/OpenIMU'),
