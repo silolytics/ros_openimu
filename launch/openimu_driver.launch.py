@@ -8,11 +8,11 @@ def generate_launch_description():
     return LaunchDescription([
         # Declare arguments with default values
         DeclareLaunchArgument(
-            'namespace',             default_value='/ros_openimu'),
+            'namespace',             default_value=''),
         DeclareLaunchArgument(
             'node_name',             default_value='openimu_driver'),
         DeclareLaunchArgument(
-            'port',             default_value='/dev/ttyUSB0'),
+            'port',             default_value='/dev/ttyTSH1'),
         DeclareLaunchArgument(
             'baudrate',             default_value='115200'),
 

@@ -2,6 +2,9 @@
 
 import rclpy
 from rclpy.node import Node
+from diagnostic_msgs.msg import DiagnosticArray
+from diagnostic_msgs.msg import DiagnosticStatus
+from rclpy.qos import qos_profile_system_default
 from rcl_interfaces.msg import ParameterDescriptor
 import sys
 import math
@@ -49,6 +52,11 @@ class OpenIMUros(Node):
             durability=rclpy.qos.DurabilityPolicy.VOLATILE)
         
         # Create publisher
+        self.diagnostic_pub = self.create_publisher(DiagnosticArray,
+                                         '/diagnostics',
+                                         qos_profile_system_default)
+        timer_period = 2.0
+        self.tmr = self.create_timer(timer_period, self.diagnostic_callback)
         self.pub_imu = self.create_publisher(Imu, 'imu_acc_ar', 1)
         self.pub_mag = self.create_publisher(Imu, 'imu_mag', 1)
         pub_period = 0.01  # Run with 100Hz
@@ -60,15 +68,38 @@ class OpenIMUros(Node):
         self.frame_id = 'imu'
         self.convert_rads = math.pi /180
         self.convert_tesla = 1/10000
+        self.imu_working = False
+        self.diag_array = DiagnosticArray()
+        self.diag_array.status = [
+            # Data available and ok
+            DiagnosticStatus(level=DiagnosticStatus.OK,
+                             name='/imu/working', message='OK')]
 
         self.openimudev.startup()
         self.use_ENU = ENU
 
-    def publish_imu_callback(self):
-        # Read data from device
+    
+    def diagnostic_callback(self):
+        self.array.header.stamp = self.get_clock().now().to_msg()
+        self.get_logger.warn("In diagnotic")
+        # Assign imu status
+        if self.imu_working:
+            self.diag_array.status[1].level = DiagnosticStatus.OK
+            self.diag_array.status[1].message = 'Imu state: OK'
+            self.diag_array.status[1].name = 'Aceinna IMU'
+
+        else:
+            self.diag_array.status[1].level = DiagnosticStatus.WARN
+            self.diag_array.status[1].message = 'Imu state: WARN '
+            self.diag_array.status[1].name = 'Aceinna IMU'
+        
+        self.diagnostic_pub.publish(self.diag_array)
+
+    def publish_imu_callback(self):       # Read data from device
         readback = self.readimu()
         if(PACKAGETYPE == 'a2'):
             self.dataToMsg(readback, self.use_ENU, self.imu_msg, self.frame_id)
+            self.imu_working = True
         
         else:
             self.dataToMsgRaw(readback, self.imu_msg, self.frame_id)
