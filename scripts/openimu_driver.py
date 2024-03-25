@@ -73,7 +73,7 @@ class OpenIMUros(Node):
         self.diag_array.status = [
             # Data available and ok
             DiagnosticStatus(level=DiagnosticStatus.OK,
-                             name='/imu/working', message='OK')]
+                             name='/AceinnaIMU/working', message='OK')]
 
         self.openimudev.startup()
         self.use_ENU = ENU
@@ -85,13 +85,12 @@ class OpenIMUros(Node):
         if self.imu_working:
             self.diag_array.status[0].level = DiagnosticStatus.OK
             self.diag_array.status[0].message = 'Imu state: OK'
-            self.diag_array.status[0].name = 'Aceinna IMU'
+
 
         else:
             self.diag_array.status[0].level = DiagnosticStatus.WARN
             self.diag_array.status[0].message = 'Imu state: WARN '
-            self.diag_array.status[0].name = 'Aceinna IMU'
-    0
+
         self.diagnostic_pub.publish(self.diag_array)
 
     def publish_imu_callback(self):       # Read data from device
