@@ -3,8 +3,6 @@ import os
 import time
 import struct
 from .openimu.uart_provider import Provider as OpenIMUProvider
-from .openrtk.uart_provider import Provider as OpenRTKProvider
-from .dmu.uart_provider import Provider as DMUProvider
 from .dmu import dmu_helper
 from ..framework.utils import (helper, resource)
 from ..framework.context import APP_CONTEXT
@@ -167,22 +165,7 @@ class DeviceManager:
 
                 if not DeviceManager.can_ping:
                     if device_info_text.find('OpenRTK') > -1:
-                        DeviceManager.can_ping = True
-                        split_device_info = device_info_text.split(' ')
-                        print('# Connected OpenRTK [{0}] #'.format(port))
-                        print('Device: {0} {1} {2} {3}'.format(
-                            split_device_info[0], split_device_info[2], split_device_info[3], split_device_info[4]))
-                        print('APP version:', app_info_text)
-                        APP_CONTEXT.get_logger().logger.info(
-                            'Connected {0}, {1}'.format(device_info_text, app_info_text))
-
-                        if DeviceManager.device == None or DeviceManager.device.type != 'RTK':
-                            DeviceManager.device = OpenRTKProvider(
-                                communicator)
-
-                        DeviceManager.device.build_device_info(
-                            device_info_text, app_info_text)
-                        return DeviceManager.device
+                        print('Error, try to connect to openrtk. Driver is only used for Imus')
 
                     elif device_info_text.find('OpenIMU') > -1 and \
                             device_info_text.find('OpenRTK') == -1:
@@ -200,29 +183,4 @@ class DeviceManager:
                         DeviceManager.device.build_device_info(
                             device_info_text, app_info_text)
                         return DeviceManager.device
-
-            if filter_device_type == None or filter_device_type == 'DMU':
-                APP_CONTEXT.get_logger().logger.debug('Checking if is DMU device...')
-                ret = DeviceManager.dmu_ping(serial, 'PK')
-                if ret:
-                    # consider as dmu
-                    device_info = DeviceManager.dmu_ping(serial, 'GP', ID)
-                    if device_info:
-                        app_info = DeviceManager.dmu_ping(serial, 'GP', VR)
-                        if app_info:
-                            DeviceManager.can_ping = True
-                            #print('The device work as DMU')
-                            print('# Connected DMU #')
-                            print('Device SN: {0}'.format(device_info['sn']))
-                            print('Device Model: {0} {1}'.format(
-                                device_info['name'], device_info['pn']))
-                            print('Firmware Version:', app_info['version'])
-
-                            if DeviceManager.device == None or DeviceManager.device.type != 'DMU':
-                                DeviceManager.device = DMUProvider(
-                                    communicator)
-
-                            DeviceManager.device.build_device_info(
-                                device_info, app_info)
-                            return DeviceManager.device
         return None

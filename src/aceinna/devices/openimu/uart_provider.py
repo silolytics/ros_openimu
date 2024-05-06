@@ -7,6 +7,7 @@ import math
 import datetime
 import threading
 import struct
+#from azure.storage.blob import BlockBlobService
 from ...framework.utils import helper
 from ...framework.utils import resource
 from ..base.uart_base import OpenDeviceBase
@@ -743,17 +744,17 @@ class Provider(OpenDeviceBase):
 
         try:
             config = get_config()
-            #account_name = config.AZURE_STORAGE_ACCOUNT
-            #container_name = config.AZURE_STORAGE_BACKUP_CONTAINER
+            account_name = config.AZURE_STORAGE_ACCOUNT
+            container_name = config.AZURE_STORAGE_BACKUP_CONTAINER
             sas_token = self.ans_platform.get_sas_token()
             if sas_token == '':
                 raise Exception('cannot get sas token')
-            #self.block_blob_service = BlockBlobService(account_name=account_name,
-            #                                           sas_token=sas_token,
-            #                                           protocol='http')
-            #self.block_blob_service.create_blob_from_path(container_name=container_name,
-            #                                              blob_name=file_name,
-            #                                              file_path=file_path)
+            self.block_blob_service = BlockBlobService(account_name=account_name,
+                                                       sas_token=sas_token,
+                                                       protocol='http')
+            self.block_blob_service.create_blob_from_path(container_name=container_name,
+                                                          blob_name=file_name,
+                                                          file_path=file_path)
         except Exception as ex:
             print('azure exception', ex)
             self.is_backup = False

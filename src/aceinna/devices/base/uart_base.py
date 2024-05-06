@@ -10,7 +10,7 @@ import traceback
 from pathlib import Path
 from .event_base import EventBase
 from ...framework.utils import (helper, resource)
-#from ...framework.file_storage import FileLoger
+from ...framework.file_storage import FileLoger
 from ...framework.configuration import get_config
 from ...framework.ans_platform_api import AnsPlatformAPI
 from ..message_center import DeviceMessageCenter
@@ -155,13 +155,18 @@ class OpenDeviceBase(EventBase):
         ''' start 2 threads, receiver, parser
         '''
         self.load_properties()
-        self._logger = None #FileLoger(self.properties)
+        self._logger = FileLoger(self.properties)
         self.cli_options = options
 
-        with_data_log = False
+        with_data_log = options and options.with_data_log
 
         self._setup_message_center()
 
+        if with_data_log and not self.is_logging and self.enable_data_log:
+            log_result = self._logger.start_user_log('data')
+            if log_result == 1 or log_result == 2:
+                raise Exception('Cannot start data logger')
+            self.is_logging = True
 
         self.after_setup()
 
@@ -312,13 +317,7 @@ class OpenDeviceBase(EventBase):
         if firmware_file.is_file():
             firmware_content = open(firmware_file_path, 'rb').read()
         else:
-            pass
-            #self.block_blob_service = BlockBlobService(
-            #    account_name=config.AZURE_STORAGE_ACCOUNT, protocol='https')
-            #self.block_blob_service.get_blob_to_path(
-            #    config.AZURE_STORAGE_APPS_CONTAINER, file, firmware_file_path)
-            #firmware_content = open(firmware_file_path, 'rb').read()
-
+            print('Loading firmware from azure is deperecated')
         return firmware_content
 
     def download_firmware(self, file):
@@ -362,7 +361,7 @@ class OpenDeviceBase(EventBase):
         self.is_upgrading = False
 
         self.load_properties()
-        #self._logger = FileLoger(self.properties)
+        self._logger = FileLoger(self.properties)
         self.cli_options = options
 
         self._message_center.get_parser().set_configuration(self.properties)
@@ -382,8 +381,7 @@ class OpenDeviceBase(EventBase):
             return False
 
         if self._logger is None:
-           pass
-           # self._logger = FileLoger(self.properties)
+            self._logger = FileLoger(self.properties)
 
         log_result = self._logger.start_user_log('data')
         if log_result == 1 or log_result == 2:

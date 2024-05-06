@@ -6,8 +6,6 @@ import datetime
 import json
 import threading
 import requests
-#from azure.storage.blob import AppendBlobService
-#from azure.storage.blob import ContentSettings
 from .utils import resource
 from .configuration import get_config
 
@@ -180,26 +178,7 @@ class FileLoger():
 
             # create blob on azure
             if not bcreate_blob_ok:
-                try:
-                    #self.append_blob_service = AppendBlobService(account_name=accountName,
-                    #                                             sas_token=self.sas_token,
-                    #                                             protocol='http')
-                    #self.append_blob_service.create_blob(container_name=countainerName, blob_name=url_name,
-                    #                                     content_settings=ContentSettings(content_type='text/plain'))
-                    #bcreate_blob_ok = True
-                    threading.Thread(target=self.save_to_db_task, args=(
-                        packet_type, log_file_name, url_name)).start()
-                except Exception as e:
-                    # print('Exception when create_blob:', type(e), e)
-                    if error_connection in str(e):
-                        pass
-                    elif error_authorization in str(e):
-                        self.get_sas_token()
-                        #self.append_blob_service = AppendBlobService(account_name=accountName,
-                        #                                             sas_token=self.sas_token,
-                        #                                             protocol='http')
-                    print('Retry to create_blob again...')
-                    continue
+                print('Driver does not support azure')
 
             # append blob on azure
             try:
@@ -211,15 +190,7 @@ class FileLoger():
                 if error_connection in str(e):
                     pass
                 elif error_authorization in str(e):
-                    self.get_sas_token()
-                    #self.append_blob_service = AppendBlobService(account_name=accountName,
-                    #                                             sas_token=self.sas_token,
-                    #                                             protocol='http')
-                    # if append blob failed, do not drop 'text', but push 'text' to data_dict and re-append next time.
-                    self.data_lock.acquire()
-                    self.data_dict[log_file_name] = text + \
-                        self.data_dict[log_file_name]
-                    self.data_lock.release()
+                    pass
 
         if bcreate_blob_ok:
             # if not self.save_to_ans_platform(packet_type, log_file_name):
