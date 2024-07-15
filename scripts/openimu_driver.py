@@ -32,8 +32,8 @@ class OpenIMUros(Node):
     def __init__(self):
         super().__init__('openimu_driver')
         # Declare gobal names
-        self.port = 'port'
-        self.baudrate = 'baudrate'
+        self.port = 'port_imu'
+        self.baudrate = 'baudrate_imu'
         # The default connection method fails on RS232 of Jetson Orin Nano
         # Declare params for the connection to the device
         port_descriptor = ParameterDescriptor(

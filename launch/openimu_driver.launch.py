@@ -12,9 +12,9 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'node_name',             default_value='openimu_driver'),
         DeclareLaunchArgument(
-            'port',             default_value='/dev/ttyUSB0'),
+            'port_imu',             default_value='/dev/ttyUSB0'),
         DeclareLaunchArgument(
-            'baudrate',             default_value='115200'),
+            'baudrate_imu',             default_value='115200'),
 
 
         # ******************************************************************
@@ -28,8 +28,8 @@ def generate_launch_description():
             parameters=[
                 {
 
-                    'port': LaunchConfiguration('port'),
-                    'baudrate': LaunchConfiguration('baudrate'),
+                    'port_imu': LaunchConfiguration('port_imu'),
+                    'baudrate_imu': LaunchConfiguration('baudrate_imu'),
 
                 }
             ],
