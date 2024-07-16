@@ -79,7 +79,10 @@ class OpenIMUros(Node):
             DiagnosticStatus(level=DiagnosticStatus.OK,
                              name='AceinnaIMU', message='OK', hardware_id='10')]
 
+        self.get_logger().warn("Start to find IMU device")
         self.openimudev.startup()
+        self.get_logger().warn("Found Imu device")
+
         self.use_ENU = ENU
 
     def diagnostic_callback(self):
@@ -99,7 +102,6 @@ class OpenIMUros(Node):
         readback = self.readimu()
         if (PACKAGETYPE == 'a2'):
             self.dataToMsg(readback, self.use_ENU, self.imu_msg, self.frame_id)
-            self.imu_working = True
 
         else:
             self.dataToMsgRaw(readback, self.imu_msg, self.frame_id)
@@ -124,7 +126,9 @@ class OpenIMUros(Node):
         Convert values to be compliant with REP-103 
         and REP-105
         '''
+        self.imu_working = False
         if (readback['errorflag'] == False):
+            self.imu_working = True
             if (use_enu):
                 if readback['roll'] > 0.0:
                     readback['roll'] = (

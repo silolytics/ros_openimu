@@ -1,8 +1,13 @@
+import os
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
+PORT_ENV = os.getenv("PORT_IMU")
+
+
+PORT_VAL = PORT_ENV if(PORT_ENV is not None) else "/dev/ttyTHS1" 
 
 def generate_launch_description():
     return LaunchDescription([
@@ -12,7 +17,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'node_name',             default_value='openimu_driver'),
         DeclareLaunchArgument(
-            'port_imu',             default_value='/dev/ttyUSB0'),
+            'port_imu',             default_value=PORT_VAL),
         DeclareLaunchArgument(
             'baudrate_imu',             default_value='115200'),
 
