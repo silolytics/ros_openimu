@@ -30,6 +30,8 @@ def generate_launch_description():
             namespace=LaunchConfiguration('namespace'),
             package='ros_openimu',
             executable='openimu_driver.py',
+            respawn=True,
+            respawn_delay=4,
             parameters=[
                 {
 
